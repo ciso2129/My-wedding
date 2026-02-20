@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  :root {
+    --envelope-color: #f3e5ab;
+    --liner-color: #d4af37;
+    --card-color: #ffffff;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e0d7c6;
+    margin: 0;
+    font-family: 'Georgia', serif;
+  }
+
+  /* The Container */
+  .envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+  }
+
+  /* The Envelope Body */
+  .envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: var(--envelope-color);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  /* The Card inside */
+  .card {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 280px;
+    height: 180px;
+    background-color: var(--card-color);
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.8s ease;
+    z-index: 1;
+    border: 1px solid #eee;
+  }
+
+  /* The Flap */
+  .flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid var(--liner-color);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+    z-index: 3;
+  }
+
+  /* The Stamp */
+  .stamp {
+    position: absolute;
+    bottom: 80px;
+    left: 130px;
+    width: 40px;
+    height: 40px;
+    background-color: #b22222;
+    border-radius: 50%;
+    border: 2px dashed #8b0000;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gold;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+
+  /* Animation when opened */
+  .envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+    z-index: 0;
+  }
+
+  .envelope-wrapper.open .card {
+    transform: translateY(-120px);
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="envelope-wrapper" onclick="this.classList.toggle('open')">
+  <div class="flap"></div>
+  <div class="stamp">❤</div>
+  <div class="envelope"></div>
+  <div class="card">
+    <h3>You're Invited!</h3>
+    <p>Join us for a celebration</p>
+    <small>Saturday, Oct 12th</small>
+  </div>
+</div>
+
+</body>
+</html>
