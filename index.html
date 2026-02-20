@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding of Zulfkar & Eqra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zulfkar & Eqra Wedding</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --olive-deep: #3b4d1a;
-            --olive-mid: #556b2f;
+            --olive-lite: #a4b494; /* Lightened Olive */
+            --sage-bg: #f2f5ed;
             --cream: #fffdfa;
-            --gold: #b38b4d;
+            --gold: #c5a059;
         }
 
         body {
@@ -21,29 +22,26 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             overflow: hidden;
         }
 
-        /* 3D Container */
-        .wrapper { position: relative; perspective: 1500px; z-index: 10; }
-
+        /* --- Envelope Animation --- */
         .envelope-wrapper {
             position: relative;
-            width: 360px;
-            height: 260px;
-            transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 320px;
+            height: 220px;
             cursor: pointer;
+            z-index: 5;
+            transition: opacity 0.5s;
         }
 
         .envelope {
-            position: relative;
+            position: absolute;
             width: 100%;
             height: 100%;
             background-color: var(--olive-deep);
-            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
-            z-index: 1;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
         .flap {
@@ -51,88 +49,104 @@
             top: 0;
             width: 0;
             height: 0;
-            border-left: 180px solid transparent;
-            border-right: 180px solid transparent;
-            border-top: 140px solid var(--olive-mid);
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid var(--olive-lite);
             transform-origin: top;
-            transition: transform 0.8s ease, z-index 0.2s 0.4s;
-            z-index: 4;
+            transition: transform 0.6s ease;
+            z-index: 2;
         }
 
         .stamp {
             position: absolute;
-            top: 110px;
-            left: 152px;
-            width: 56px;
-            height: 56px;
+            top: 90px;
+            left: 135px;
+            width: 50px;
+            height: 50px;
             background: radial-gradient(circle, #d4af37, #b38b4d);
             border-radius: 50%;
-            z-index: 5;
+            z-index: 3;
             display: flex;
             align-items: center;      
             justify-content: center;
             font-family: 'Great Vibes', cursive;
-            font-size: 20px;
             color: white;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
-            transition: 0.6s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
+        /* --- THE CARD (FULL SCREEN FIX) --- */
         .card {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 340px;
-            height: 240px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 90vw;
+            max-width: 400px;
+            height: 0; /* Hidden initially */
             background: var(--cream);
-            padding: 40px 25px;
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+            overflow-y: auto;
+            border: 8px double var(--olive-lite); /* Design border */
+            padding: 40px 20px;
             box-sizing: border-box;
             text-align: center;
-            border: 2px solid var(--gold);
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(0) scale(0.9);
-            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 5px;
         }
 
-        /* OPEN ANIMATIONS */
-        .open .flap { transform: rotateX(180deg); z-index: 0; }
-        .open .stamp { transform: scale(0); opacity: 0; }
+        /* --- OPEN STATE --- */
+        .open .flap { transform: rotateX(180deg); }
+        .open .stamp { opacity: 0; transform: scale(0); }
         .open .card {
+            height: 85vh; /* Responsive Height */
             opacity: 1;
-            height: 720px;
-            transform: translateY(-440px) scale(1.05);
-            z-index: 10;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            transform: translate(-50%, -50%) scale(1);
         }
 
-        .names { font-family: 'Great Vibes', cursive; color: var(--olive-deep); font-size: 2.2rem; margin: 20px 0; }
-        
-        #countdown { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        /* --- Content Design --- */
+        .names {
+            font-family: 'Great Vibes', cursive;
+            color: var(--olive-deep);
+            font-size: 2.2rem;
+            margin: 20px 0;
+            border-bottom: 1px solid var(--olive-lite);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            background: var(--sage-bg);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
         .time-box span { display: block; font-size: 1.2rem; color: var(--gold); font-weight: bold; }
 
         .rsvp-btn {
             display: inline-block;
             background: #25D366;
             color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 15px 30px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
         }
 
-        /* Falling Petals Background */
+        /* --- Petals --- */
         .petal {
-            position: absolute;
-            background-color: #ffc0cb;
+            position: fixed;
+            background-color: rgba(164, 180, 148, 0.6); /* Olive leaves instead of pink */
             border-radius: 150% 0 150% 0;
-            opacity: 0.7;
             pointer-events: none;
             z-index: 1;
         }
-
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); }
             100% { transform: translateY(110vh) rotate(360deg); }
@@ -145,73 +159,72 @@
     <source src="https://www.bensound.com/bensound-music/bensound-india.mp3" type="audio/mpeg">
 </audio>
 
-<div class="wrapper">
-    <div class="envelope-wrapper" id="envelope" onclick="openCard()">
-        <div class="flap"></div>
-        <div class="stamp">Z&E</div>
-        <div class="envelope"></div>
+<div class="envelope-wrapper" id="mainContainer" onclick="openInvitation()">
+    <div class="flap"></div>
+    <div class="stamp">Z&E</div>
+    <div class="envelope"></div>
+    
+    <div class="card" id="inviteCard">
+        <p style="text-transform:uppercase; letter-spacing:3px; font-size:10px; color:var(--olive-lite);">The Wedding of</p>
+        <div class="names">Zulfkar Qureshi <br>&<br> Eqra Farooq</div>
+        <p><strong>Sunday, 26 April 2026</strong></p>
         
-        <div class="card">
-            <div class="card-content">
-                <p style="text-transform:uppercase; letter-spacing:3px; font-size:10px;">The Wedding of</p>
-                <div class="names">Zulfkar Qureshi <br>&<br> Eqra Farooq</div>
-                <p><strong>APRIL 26, 2026</strong></p>
-                
-                <div id="countdown">
-                    <div class="time-box"><span id="days">00</span>Days</div>
-                    <div class="time-box"><span id="hours">00</span>Hrs</div>
-                    <div class="time-box"><span id="mins">00</span>Mins</div>
-                </div>
-
-                <div style="margin:40px 0; height:1px; background:var(--gold); opacity:0.3;"></div>
-
-                <h4>The Celebration</h4>
-                <p>Nikah & Walima Feast</p>
-                <p><em>Royal Orchid Gardens, Srinagar</em></p>
-
-                <a href="https://wa.me/910000000000" class="rsvp-btn">RSVP via WhatsApp</a>
-                <p style="margin-bottom: 80px;"></p>
-            </div>
+        <div id="countdown">
+            <div class="time-box"><span id="days">00</span>Days</div>
+            <div class="time-box"><span id="hours">00</span>Hrs</div>
+            <div class="time-box"><span id="mins">00</span>Mins</div>
         </div>
-    </div>
+
+        <div style="margin:40px 0; font-style: italic; color: var(--olive-mid);">
+            "And We created you in pairs"
+        </div>
+
+        <div class="section">
+            <h4 style="color:var(--gold); letter-spacing: 2px;">VENUE</h4>
+            <p>Royal Orchid Gardens<br>Srinagar, J&K</p>
+        </div>
+
+        <a href="https://wa.me/910000000000" class="rsvp-btn">RSVP via WhatsApp</a>
+        
+        <p style="font-size: 11px; color: #999;">Tap card to close</p>
+        <div style="height: 50px;"></div> </div>
 </div>
 
 <script>
-    function openCard() {
-        const envelope = document.getElementById('envelope');
+    function openInvitation() {
+        const container = document.getElementById('mainContainer');
         const music = document.getElementById('weddingMusic');
         
-        envelope.classList.toggle('open');
+        container.classList.toggle('open');
         
-        if (envelope.classList.contains('open')) {
+        if (container.classList.contains('open')) {
             music.play();
-            createPetals();
+            createLeaves();
         } else {
             music.pause();
         }
     }
 
-    function createPetals() {
-        for (let i = 0; i < 30; i++) {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.width = Math.random() * 15 + 10 + 'px';
-            petal.style.height = petal.style.width;
-            petal.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
-            petal.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(petal);
+    function createLeaves() {
+        for (let i = 0; i < 25; i++) {
+            const leaf = document.createElement('div');
+            leaf.className = 'petal';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.width = Math.random() * 10 + 10 + 'px';
+            leaf.style.height = leaf.style.width;
+            leaf.style.animation = `fall ${Math.random() * 4 + 3}s linear infinite`;
+            document.body.appendChild(leaf);
         }
     }
 
-    // Countdown Logic
-    const weddingDate = new Date("April 26, 2026 00:00:00").getTime();
-    setInterval(function() {
+    // Countdown logic for April 26, 2026
+    const target = new Date("April 26, 2026 00:00:00").getTime();
+    setInterval(() => {
         const now = new Date().getTime();
-        const diff = weddingDate - now;
-        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const gap = target - now;
+        document.getElementById("days").innerText = Math.floor(gap / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("mins").innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
     }, 1000);
 </script>
 
