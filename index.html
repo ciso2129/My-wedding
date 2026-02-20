@@ -1,110 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-  :root {
-    --envelope-color: #f3e5ab;
-    --liner-color: #d4af37;
-    --card-color: #ffffff;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fdf6f0;
+            --envelope-color: #ffffff;
+            --liner-color: #e2c275; /* Gold Liner */
+            --wax-seal: #a32638;
+            --text-dark: #4a4a4a;
+        }
 
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #e0d7c6;
-    margin: 0;
-    font-family: 'Georgia', serif;
-  }
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
 
-  /* The Container */
-  .envelope-wrapper {
-    position: relative;
-    cursor: pointer;
-  }
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
 
-  /* The Envelope Body */
-  .envelope {
-    position: relative;
-    width: 300px;
-    height: 200px;
-    background-color: var(--envelope-color);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+        }
 
-  /* The Card inside */
-  .card {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    width: 280px;
-    height: 180px;
-    background-color: var(--card-color);
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    transition: transform 0.8s ease;
-    z-index: 1;
-    border: 1px solid #eee;
-  }
+        /* The Envelope Base */
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: var(--envelope-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
 
-  /* The Flap */
-  .flap {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 100px solid var(--liner-color);
-    transform-origin: top;
-    transition: transform 0.4s ease;
-    z-index: 3;
-  }
+        /* The Inner Liner (Inside the flap) */
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid var(--liner-color);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
+        }
 
-  /* The Stamp */
-  .stamp {
-    position: absolute;
-    bottom: 80px;
-    left: 130px;
-    width: 40px;
-    height: 40px;
-    background-color: #b22222;
-    border-radius: 50%;
-    border: 2px dashed #8b0000;
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: gold;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  }
+        /* The Gold Wax Seal */
+        .stamp {
+            position: absolute;
+            top: 85px;
+            left: 135px;
+            width: 50px;
+            height: 50px;
+            background: var(--wax-seal);
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px solid #801826;
+            transition: 0.4s;
+        }
 
-  /* Animation when opened */
-  .envelope-wrapper.open .flap {
-    transform: rotateX(180deg);
-    z-index: 0;
-  }
+        /* The Card Design */
+        .card {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 290px;
+            height: 200px;
+            background: #fff;
+            background-image: radial-gradient(#f0eadd 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: center;
+            border: 2px solid #f1e5ac;
+            transition: transform 0.8s ease;
+            z-index: 2;
+        }
 
-  .envelope-wrapper.open .card {
-    transform: translateY(-120px);
-    z-index: 2;
-  }
-</style>
+        .card h2 {
+            font-family: 'Great Vibes', cursive;
+            color: #b8860b;
+            font-size: 2.2rem;
+            margin: 0;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Interactive States */
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-wrapper.open .card {
+            transform: translateY(-150px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .envelope-wrapper.open .stamp {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        .btn-rsvp {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #b8860b;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            border-radius: 20px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="envelope-wrapper" onclick="this.classList.toggle('open')">
-  <div class="flap"></div>
-  <div class="stamp">❤</div>
-  <div class="envelope"></div>
-  <div class="card">
-    <h3>You're Invited!</h3>
-    <p>Join us for a celebration</p>
-    <small>Saturday, Oct 12th</small>
-  </div>
+    <div class="flap"></div>
+    <div class="stamp">❈</div>
+    <div class="envelope"></div>
+    
+    <div class="card">
+        <h2>Save the Date</h2>
+        <p>We are delighted to invite you to our celebration</p>
+        <p><strong>Dec 25 | 7:00 PM</strong></p>
+        <a href="#" class="btn-rsvp">Click to RSVP</a>
+    </div>
 </div>
 
 </body>
