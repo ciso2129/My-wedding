@@ -11,13 +11,12 @@
             --olive-deep: #3b4d1a;
             --olive-mid: #556b2f;
             --cream: #fffdfa;
-            --gold-text: #b38b4d;
+            --gold: #b38b4d;
         }
 
         body {
             margin: 0;
-            padding: 0;
-            background: #f0f2eb;
+            background: #e9edde;
             font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
@@ -26,12 +25,16 @@
             overflow: hidden;
         }
 
+        /* 3D Container */
+        .wrapper { position: relative; perspective: 1500px; z-index: 10; }
+
         .envelope-wrapper {
             position: relative;
             width: 360px;
             height: 260px;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            perspective: 1000px;
         }
 
         .envelope {
@@ -39,7 +42,7 @@
             width: 100%;
             height: 100%;
             background-color: var(--olive-deep);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
             z-index: 1;
         }
 
@@ -50,30 +53,29 @@
             height: 0;
             border-left: 180px solid transparent;
             border-right: 180px solid transparent;
-            border-top: 130px solid var(--olive-mid);
+            border-top: 140px solid var(--olive-mid);
             transform-origin: top;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.8s ease, z-index 0.2s 0.4s;
             z-index: 4;
         }
 
         .stamp {
             position: absolute;
-            top: 100px;
-            left: 155px;
-            width: 55px;
-            height: 55px;
+            top: 110px;
+            left: 152px;
+            width: 56px;
+            height: 56px;
             background: radial-gradient(circle, #d4af37, #b38b4d);
             border-radius: 50%;
             z-index: 5;
             display: flex;
-            align-items: center;
+            align-items: center;      
             justify-content: center;
             font-family: 'Great Vibes', cursive;
             font-size: 20px;
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-            transition: 0.5s;
-            border: 1px solid #96743d;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+            transition: 0.6s ease;
         }
 
         .card {
@@ -81,125 +83,132 @@
             top: 10px;
             left: 10px;
             width: 340px;
-            height: 240px; 
+            height: 240px;
             background: var(--cream);
-            padding: 30px 20px;
+            padding: 40px 25px;
             box-sizing: border-box;
             text-align: center;
-            transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--gold);
             z-index: 2;
-            overflow-y: hidden;
-            border: 1px solid #eee;
-        }
-
-        .card-content {
             opacity: 0;
-            transition: opacity 0.5s ease 0.4s;
+            transform: translateY(0) scale(0.9);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .names {
-            font-family: 'Great Vibes', cursive;
-            color: var(--olive-deep);
-            font-size: 2.2rem;
-            margin: 15px 0;
-            line-height: 1.2;
+        /* OPEN ANIMATIONS */
+        .open .flap { transform: rotateX(180deg); z-index: 0; }
+        .open .stamp { transform: scale(0); opacity: 0; }
+        .open .card {
+            opacity: 1;
+            height: 720px;
+            transform: translateY(-440px) scale(1.05);
+            z-index: 10;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         }
 
-        .section { margin: 35px 0; }
+        .names { font-family: 'Great Vibes', cursive; color: var(--olive-deep); font-size: 2.2rem; margin: 20px 0; }
         
-        .section h4 {
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.7rem;
-            color: var(--gold-text);
-            margin-bottom: 5px;
-        }
-
-        /* Countdown Style */
-        #countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            font-weight: 600;
-            color: var(--olive-deep);
-        }
-
-        .time-box { font-size: 0.8rem; }
-        .time-box span { display: block; font-size: 1.2rem; color: var(--gold-text); }
+        #countdown { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .time-box span { display: block; font-size: 1.2rem; color: var(--gold); font-weight: bold; }
 
         .rsvp-btn {
             display: inline-block;
-            background-color: #25D366;
+            background: #25D366;
             color: white;
             padding: 12px 25px;
-            text-decoration: none;
             border-radius: 30px;
+            text-decoration: none;
             font-weight: 600;
-            font-size: 0.8rem;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
-        /* OPEN STATE */
-        .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 0; }
-        .envelope-wrapper.open .stamp { opacity: 0; }
-        .envelope-wrapper.open .card {
-            height: 750px; 
-            transform: translateY(-480px);
-            overflow-y: auto;
-            z-index: 10;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        /* Falling Petals Background */
+        .petal {
+            position: absolute;
+            background-color: #ffc0cb;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
         }
-        .envelope-wrapper.open .card-content { opacity: 1; }
-        .card::-webkit-scrollbar { width: 0; }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
-<div class="envelope-wrapper" onclick="this.classList.toggle('open')">
-    <div class="flap"></div>
-    <div class="stamp">Z&E</div>
-    <div class="envelope"></div>
-    
-    <div class="card">
-        <div class="card-content">
-            <h4>Save the Date</h4>
-            <div class="names">Zulfkar Qureshi <br>&<br> Eqra Farooq</div>
-            <p style="color: var(--gold-text); font-weight: 600;">26 APRIL 2026</p>
-            
-            <div id="countdown">
-                <div class="time-box"><span id="days">00</span>Days</div>
-                <div class="time-box"><span id="hours">00</span>Hrs</div>
-                <div class="time-box"><span id="mins">00</span>Mins</div>
-            </div>
+<audio id="weddingMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-india.mp3" type="audio/mpeg">
+</audio>
 
-            <div class="section">
+<div class="wrapper">
+    <div class="envelope-wrapper" id="envelope" onclick="openCard()">
+        <div class="flap"></div>
+        <div class="stamp">Z&E</div>
+        <div class="envelope"></div>
+        
+        <div class="card">
+            <div class="card-content">
+                <p style="text-transform:uppercase; letter-spacing:3px; font-size:10px;">The Wedding of</p>
+                <div class="names">Zulfkar Qureshi <br>&<br> Eqra Farooq</div>
+                <p><strong>APRIL 26, 2026</strong></p>
+                
+                <div id="countdown">
+                    <div class="time-box"><span id="days">00</span>Days</div>
+                    <div class="time-box"><span id="hours">00</span>Hrs</div>
+                    <div class="time-box"><span id="mins">00</span>Mins</div>
+                </div>
+
+                <div style="margin:40px 0; height:1px; background:var(--gold); opacity:0.3;"></div>
+
                 <h4>The Celebration</h4>
-                <p>Please join us for the Nikah ceremony followed by a grand Walima feast.</p>
-            </div>
+                <p>Nikah & Walima Feast</p>
+                <p><em>Royal Orchid Gardens, Srinagar</em></p>
 
-            <div class="section">
-                <h4>Venue</h4>
-                <p>The Royal Orchid Gardens<br>Srinagar, J&K</p>
+                <a href="https://wa.me/910000000000" class="rsvp-btn">RSVP via WhatsApp</a>
+                <p style="margin-bottom: 80px;"></p>
             </div>
-
-            <a href="https://wa.me/910000000000?text=I%20will%20be%20attending!" class="rsvp-btn">
-                Confirm Attendance (WhatsApp)
-            </a>
-            
-            <p style="margin-bottom: 60px;"></p>
         </div>
     </div>
 </div>
 
 <script>
-    // Countdown Timer Logic
-    const weddingDate = new Date("April 26, 2026 00:00:00").getTime();
+    function openCard() {
+        const envelope = document.getElementById('envelope');
+        const music = document.getElementById('weddingMusic');
+        
+        envelope.classList.toggle('open');
+        
+        if (envelope.classList.contains('open')) {
+            music.play();
+            createPetals();
+        } else {
+            music.pause();
+        }
+    }
 
+    function createPetals() {
+        for (let i = 0; i < 30; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+            petal.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(petal);
+        }
+    }
+
+    // Countdown Logic
+    const weddingDate = new Date("April 26, 2026 00:00:00").getTime();
     setInterval(function() {
         const now = new Date().getTime();
         const diff = weddingDate - now;
-
         document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
         document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
