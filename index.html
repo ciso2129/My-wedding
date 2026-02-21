@@ -10,45 +10,47 @@
         :root {
             --olive-deep: #3b4d1a;
             --olive-lite: #8b9467;
-            --cream: #fffdfa;
+            --cream: #fdfaf5;
             --gold: #c5a059;
-            --shadow: rgba(0,0,0,0.15);
         }
 
-        body {
-            margin: 0;
+        body, html {
+            margin: 0; padding: 0;
             background: #f4f6f0;
             font-family: 'Montserrat', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Envelope Logic */
-        .envelope-container {
-            position: relative;
-            width: 320px;
-            height: 220px;
-            transition: opacity 1s ease, transform 1s ease;
-            z-index: 10;
-        }
-
-        .envelope {
-            position: absolute;
-            width: 100%;
             height: 100%;
-            background-color: var(--olive-deep);
-            box-shadow: 0 30px 60px var(--shadow);
+            overflow: hidden; /* Locked until opened */
+        }
+
+        /* --- THE STAGE (Intro) --- */
+        #introStage {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: #e9edde;
+            z-index: 1000;
+            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), visibility 2s;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 320px; height: 220px;
+            cursor: pointer;
+            perspective: 1500px;
+        }
+
+        .envelope-base {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: var(--olive-deep);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.3);
             z-index: 1;
         }
 
         .flap {
             position: absolute;
-            top: 0;
-            width: 0;
-            height: 0;
+            top: 0; width: 0; height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
             border-top: 130px solid var(--olive-lite);
@@ -59,108 +61,86 @@
 
         .stamp {
             position: absolute;
-            top: 100px;
-            left: 135px;
-            width: 50px;
-            height: 50px;
+            top: 100px; left: 135px;
+            width: 50px; height: 50px;
             background: radial-gradient(circle, #d4af37, #b38b4d);
             border-radius: 50%;
             z-index: 4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: 'Great Vibes', cursive;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: opacity 0.5s ease;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-family: 'Great Vibes', cursive;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
 
-        /* PREMIUM FULL-PAGE CARD */
-        .card-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* --- THE FULL-SCREEN INVITATION --- */
+        #mainInvite {
+            position: relative;
             width: 100vw;
-            height: 100vh;
-            background: var(--cream);
-            z-index: 100;
-            display: none; /* Hidden until opened */
-            opacity: 0;
-            transition: opacity 2s ease;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .card-inner {
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 60px 30px;
-            text-align: center;
-            border: 1px solid #eee;
-            background: white;
             min-height: 100vh;
-            box-shadow: 0 0 50px rgba(0,0,0,0.05);
+            background: var(--cream);
+            opacity: 0;
+            transition: opacity 3s ease;
+            overflow-y: auto;
+            visibility: hidden;
         }
 
-        /* Typography & Style */
+        .content-scroll {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 80px 30px;
+            text-align: center;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.02);
+            min-height: 100vh;
+        }
+
+        /* Digital Yes Botanical Styling */
         .names {
             font-family: 'Great Vibes', cursive;
             color: var(--olive-deep);
-            font-size: 2.8rem;
-            margin: 30px 0;
-            line-height: 1.1;
+            font-size: 3.2rem;
+            margin: 20px 0;
+            line-height: 0.9;
         }
 
-        .section-title {
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.7rem;
-            color: var(--gold);
-            margin: 40px 0 10px 0;
-            font-weight: 600;
+        .divider {
+            height: 1px; width: 60px;
+            background: var(--gold);
+            margin: 30px auto;
         }
 
-        #countdown {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-            padding: 20px;
-            background: #fbfbfb;
-            border-radius: 15px;
+        #timer {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 15px; margin: 50px auto; max-width: 280px;
+        }
+        .t-box span { display: block; font-size: 2rem; font-weight: 300; color: var(--olive-deep); }
+        .t-box label { font-size: 0.6rem; text-transform: uppercase; color: var(--gold); letter-spacing: 2px; }
+
+        .info-block { margin: 60px 0; }
+        .info-block h4 {
+            text-transform: uppercase; letter-spacing: 5px;
+            font-size: 0.7rem; color: var(--gold); margin-bottom: 15px;
         }
 
-        .time-box span { display: block; font-size: 1.5rem; color: var(--gold); font-weight: bold; }
-        .time-box label { font-size: 0.6rem; text-transform: uppercase; color: #999; }
-
-        .rsvp-btn {
-            display: inline-block;
-            background: #25D366;
-            color: white;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-top: 30px;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+        .rsvp-button {
+            display: block; background: #25D366; color: white;
+            padding: 20px; border-radius: 60px;
+            text-decoration: none; font-weight: 600;
+            margin: 50px auto; width: 220px;
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.2);
+            transition: transform 0.3s;
         }
 
-        /* Animations */
-        .open-envelope .flap { transform: rotateX(180deg); }
-        .open-envelope .stamp { opacity: 0; }
-        .fade-out { opacity: 0; transform: scale(0.9); pointer-events: none; }
-        .fade-in { display: block !important; opacity: 1 !important; }
+        /* Transitions */
+        .opened-flap .flap { transform: rotateX(180deg); }
+        .opened-flap .stamp { opacity: 0; }
+        .hide-intro { opacity: 0; visibility: hidden; }
+        .show-invite { opacity: 1 !important; visibility: visible !important; }
 
-        /* Leaf Animation */
-        .leaf {
-            position: fixed;
-            background: rgba(139, 148, 103, 0.3);
-            border-radius: 100% 0 100% 0;
-            pointer-events: none;
-            z-index: 101;
+        .leaf-particle {
+            position: fixed; background: rgba(139, 148, 103, 0.2);
+            border-radius: 100% 0 100% 0; pointer-events: none; z-index: 2000;
         }
-        @keyframes drift {
+        @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); }
             100% { transform: translateY(110vh) rotate(720deg); }
         }
@@ -168,77 +148,91 @@
 </head>
 <body>
 
-<audio id="weddingMusic" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-india.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop><source src="https://www.bensound.com/bensound-music/bensound-india.mp3" type="audio/mpeg"></audio>
 
-<div class="envelope-container" id="env" onclick="startExperience()">
-    <div class="flap"></div>
-    <div class="stamp">Z&E</div>
-    <div class="envelope"></div>
+<div id="introStage">
+    <div class="envelope-wrapper" id="envelope" onclick="openTheater()">
+        <div class="flap"></div>
+        <div class="stamp">Z&E</div>
+        <div class="envelope-base"></div>
+    </div>
 </div>
 
-<div class="card-overlay" id="cardOverlay">
-    <div class="card-inner">
-        <p style="letter-spacing: 5px; font-size: 11px; color: var(--gold);">SAVE THE DATE</p>
+<div id="mainInvite">
+    <div class="content-scroll">
+        <p style="letter-spacing: 6px; font-size: 11px; color: var(--gold); margin-bottom: 40px;">BISMILLAHIR RAHMANIR RAHIM</p>
+        
+        <p style="font-size: 12px; letter-spacing: 3px; color: var(--olive-lite);">WE INVITE YOU TO CELEBRATE THE WEDDING OF</p>
         
         <div class="names">Zulfkar Qureshi <br>&<br> Eqra Farooq</div>
         
-        <p style="font-weight: 300; font-size: 1.1rem; color: var(--olive-deep);">SUNDAY, APRIL 26, 2026</p>
+        <div class="divider"></div>
+        
+        <p style="font-weight: 400; font-size: 1.2rem; color: var(--olive-deep); letter-spacing: 2px;">APRIL 26, 2026</p>
 
-        <div id="countdown">
-            <div class="time-box"><span id="days">00</span><label>Days</label></div>
-            <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
-            <div class="time-box"><span id="mins">00</span><label>Mins</label></div>
+        <div id="timer">
+            <div class="t-box"><span id="days">00</span><label>Days</label></div>
+            <div class="t-box"><span id="hours">00</span><label>Hrs</label></div>
+            <div class="t-box"><span id="mins">00</span><label>Mins</label></div>
         </div>
 
-        <div class="section-title">The Ceremony</div>
-        <p>Nikah followed by Walima Feast</p>
-        
-        <div class="section-title">Location</div>
-        <p>Royal Orchid Gardens<br>Srinagar, J&K</p>
+        <div class="info-block">
+            <h4>Venue</h4>
+            <p style="line-height: 1.8;">The Royal Orchid Gardens<br>Parraypora, Srinagar, J&K</p>
+        </div>
 
-        <a href="https://wa.me/910000000000?text=I%20will%20be%20there!" class="rsvp-btn">Confirm via WhatsApp</a>
+        <div class="info-block">
+            <h4>Schedule</h4>
+            <p>Nikah Ceremony: 11:30 AM</p>
+            <p>Reception & Feast: 01:30 PM Onwards</p>
+        </div>
 
-        <p style="margin-top: 50px; font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: var(--olive-lite);">We look forward to seeing you</p>
+        <a href="https://wa.me/910000000000?text=I%20am%20delighted%20to%20attend!" class="rsvp-button">RSVP ON WHATSAPP</a>
+
+        <div style="margin-top: 80px; font-family: 'Great Vibes', cursive; font-size: 2rem; color: var(--gold);">
+            See you there!
+        </div>
         <div style="height: 100px;"></div>
     </div>
 </div>
 
 <script>
-    function startExperience() {
-        const env = document.getElementById('env');
-        const overlay = document.getElementById('cardOverlay');
-        const music = document.getElementById('weddingMusic');
+    function openTheater() {
+        const intro = document.getElementById('introStage');
+        const invite = document.getElementById('mainInvite');
+        const env = document.getElementById('envelope');
+        const music = document.getElementById('bgMusic');
 
-        // Step 1: Open Flap
-        env.classList.add('open-envelope');
+        // 1. Open the Flap
+        env.classList.add('opened-flap');
         music.play();
 
-        // Step 2: Fade Envelope and Show Full Card (Slow Motion)
+        // 2. Dissolve the Stage and Reveal the Scrollable Invite
         setTimeout(() => {
-            env.classList.add('fade-out');
-            overlay.classList.add('fade-in');
-            createLeaves();
-        }, 1500);
+            intro.classList.add('hide-intro');
+            invite.classList.add('show-invite');
+            document.body.style.overflow = 'auto'; // Unlock scrolling
+            startLeaves();
+        }, 1800);
     }
 
-    function createLeaves() {
-        for (let i = 0; i < 20; i++) {
+    function startLeaves() {
+        for (let i = 0; i < 25; i++) {
             const leaf = document.createElement('div');
-            leaf.className = 'leaf';
+            leaf.className = 'leaf-particle';
             leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.width = Math.random() * 15 + 10 + 'px';
+            leaf.style.width = Math.random() * 12 + 8 + 'px';
             leaf.style.height = leaf.style.width;
-            leaf.style.animation = `drift ${Math.random() * 5 + 5}s linear infinite`;
+            leaf.style.animation = `fall ${Math.random() * 5 + 4}s linear infinite`;
+            leaf.style.animationDelay = Math.random() * 3 + 's';
             document.body.appendChild(leaf);
         }
     }
 
-    const weddingDate = new Date("April 26, 2026 00:00:00").getTime();
+    const target = new Date("April 26, 2026 00:00:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
-        const diff = weddingDate - now;
+        const diff = target - now;
         document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
         document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
