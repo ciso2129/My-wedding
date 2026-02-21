@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
+<title>Zulfi & Aisha Wedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Great+Vibes&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
@@ -11,16 +11,9 @@
 body{
   margin:0;
   font-family:'Playfair Display', serif;
-  background:#dbe6c6;
+  background:#dbe6c6 url('https://www.transparenttextures.com/patterns/arabesque.png');
   color:#6b5b2a;
   overflow-x:hidden;
-}
-
-/* Islamic Header */
-.bismillah{
-  font-family:'Amiri', serif;
-  font-size:28px;
-  margin-bottom:10px;
 }
 
 /* Envelope Screen */
@@ -38,12 +31,12 @@ body{
 }
 
 .envelope{
-  width:340px;
+  width:350px;
   height:220px;
   background:#b7c89e;
   position:relative;
   border-radius:8px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  box-shadow:0 12px 30px rgba(0,0,0,0.3);
 }
 
 .flap{
@@ -58,31 +51,27 @@ body{
 }
 
 .seal{
-  width:90px;
-  height:90px;
+  width:95px;
+  height:95px;
   background:radial-gradient(circle,#d4af37,#a8891f);
   border-radius:50%;
   position:absolute;
-  top:65px;
-  left:125px;
+  top:60px;
+  left:127px;
   display:flex;
   justify-content:center;
   align-items:center;
   font-family:'Great Vibes', cursive;
-  font-size:32px;
+  font-size:34px;
   color:white;
   cursor:pointer;
-  box-shadow:0 6px 15px rgba(0,0,0,0.4);
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
   transition:0.3s;
 }
 
-.seal:hover{
-  transform:scale(1.1);
-}
+.seal:hover{ transform:scale(1.1); }
 
-.open .flap{
-  transform:rotateX(-180deg);
-}
+.open .flap{ transform:rotateX(-180deg); }
 
 /* Invitation */
 .invite{
@@ -99,16 +88,25 @@ body{
 
 h1{
   font-family:'Great Vibes', cursive;
-  font-size:52px;
+  font-size:55px;
   color:#bfa134;
+  margin-bottom:5px;
+}
+
+.monogram{
+  font-size:28px;
+  letter-spacing:5px;
+  color:#bfa134;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{opacity:0.7;}
+  to{opacity:1;}
 }
 
 .section{
   margin:50px 0;
-}
-
-.gold{
-  color:#bfa134;
 }
 
 .border{
@@ -117,6 +115,8 @@ h1{
   padding:20px 0;
 }
 
+.gold{ color:#bfa134; }
+
 .button{
   padding:14px 35px;
   background:linear-gradient(145deg,#d4af37,#a8891f);
@@ -124,13 +124,19 @@ h1{
   border:none;
   border-radius:30px;
   font-size:18px;
-  text-decoration:none;
   cursor:pointer;
   transition:0.3s;
 }
 
-.button:hover{
-  transform:scale(1.08);
+.button:hover{ transform:scale(1.08); }
+
+/* Gallery */
+.gallery img{
+  width:90%;
+  max-width:280px;
+  margin:10px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
 }
 
 /* Countdown */
@@ -154,7 +160,7 @@ h1{
 }
 
 @media(max-width:600px){
-  h1{font-size:40px;}
+  h1{font-size:42px;}
 }
 </style>
 </head>
@@ -173,35 +179,54 @@ h1{
 <!-- Invitation -->
 <div class="invite" id="invite">
 
-  <div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
+<div class="monogram">Z ✦ A</div>
+<div class="gold">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
 
-  <h1>Zulfi & Aisha</h1>
-  <p class="gold">Nikah Ceremony</p>
+<h1>Zulfi & Aisha</h1>
+<p class="gold">With the blessings of Allah</p>
 
-  <div class="section border">
-    <h2>Wedding Day</h2>
-    <p>Sunday, 20 April 2026</p>
-    <p>5:00 PM</p>
-  </div>
+<div id="guestName" class="gold"></div>
 
-  <div class="section">
-    <h2>Countdown</h2>
-    <div id="countdown"></div>
-  </div>
+<div class="section border">
+<h2>Wedding Events</h2>
+<p><strong>Mehndi:</strong> 18 April 2026 – 7:00 PM</p>
+<p><strong>Nikah:</strong> 20 April 2026 – 5:00 PM</p>
+<p><strong>Walima:</strong> 21 April 2026 – 6:00 PM</p>
+</div>
 
-  <div class="section border">
-    <h2>Venue</h2>
-    <p>Royal Garden, Srinagar</p>
-  </div>
+<div class="section">
+<h2>Countdown to Nikah</h2>
+<div id="countdown"></div>
+</div>
 
-  <div class="section">
-    <button class="button">RSVP</button>
-  </div>
+<div class="section border">
+<h2>Venue</h2>
+<p>Royal Garden, Srinagar</p>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18..." 
+width="100%" height="300" style="border-radius:12px;border:2px solid #bfa134;" loading="lazy"></iframe>
+</div>
+
+<div class="section">
+<h2>Gallery</h2>
+<div class="gallery">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+</div>
+</div>
+
+<div class="section border">
+<h2>RSVP</h2>
+<form action="https://formsubmit.co/your@email.com" method="POST">
+<input type="text" name="name" placeholder="Your Name" required><br>
+<input type="number" name="guests" placeholder="Number of Guests" required><br>
+<button class="button" type="submit">Send RSVP</button>
+</form>
+</div>
 
 </div>
 
 <audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
+<source src="sufi-music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -216,39 +241,33 @@ function openInvite(){
   },1000);
 }
 
-/* Confetti */
 function confettiEffect(){
-  for(let i=0;i<30;i++){
+  for(let i=0;i<40;i++){
     let c=document.createElement("div");
     c.className="confetti";
     c.style.left=Math.random()*100+"vw";
-    c.style.animationDuration=(2+Math.random()*2)+"s";
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),3000);
   }
 }
 
-/* Countdown */
 var weddingDate=new Date("April 20, 2026 17:00:00").getTime();
-
 setInterval(function(){
   var now=new Date().getTime();
   var distance=weddingDate-now;
-
   var days=Math.floor(distance/(1000*60*60*24));
   var hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
   var minutes=Math.floor((distance%(1000*60*60))/(1000*60));
   var seconds=Math.floor((distance%(1000*60))/1000);
-
   document.getElementById("countdown").innerHTML=
   days+"d "+hours+"h "+minutes+"m "+seconds+"s";
 },1000);
 
-/* Personalized Guest Name */
+/* Personalized Guest */
 const params=new URLSearchParams(window.location.search);
 const guest=params.get("guest");
 if(guest){
-  document.querySelector(".gold").innerHTML="Dear "+guest+", You are invited";
+  document.getElementById("guestName").innerHTML="Dear "batchmate+", You are cordially invited";
 }
 
 </script>
