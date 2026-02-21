@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zubair Wedding</title>
+<title>Zulfkar Qureshi Wedding</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,7 +17,7 @@ overflow:hidden;
 scroll-behavior:smooth;
 }
 
-/* ================= ENVELOPE INTRO ================= */
+/* ================= INTRO ENVELOPE ================= */
 
 .intro{
 position:fixed;
@@ -26,16 +26,15 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:linear-gradient(135deg,#b7c48d,#8ea663);
-perspective:1200px;
+background:linear-gradient(135deg,#c9d6a3,#a5b97a);
+perspective:2000px;
 z-index:1000;
-transition:1s;
 }
 
 .envelope-wrapper{
 position:relative;
-width:350px;
-height:500px;
+width:380px;
+height:520px;
 transform-style:preserve-3d;
 }
 
@@ -46,7 +45,8 @@ height:100%;
 background:url('envelope-texture.jpg');
 background-size:cover;
 border-radius:30px;
-box-shadow:0 20px 40px rgba(0,0,0,0.4);
+box-shadow:0 30px 60px rgba(0,0,0,0.35);
+overflow:hidden;
 }
 
 .flap{
@@ -57,27 +57,34 @@ height:60%;
 background:url('envelope-texture.jpg');
 background-size:cover;
 clip-path:polygon(0 0,100% 0,50% 100%);
-transform-origin:top;
-transition:1.2s ease;
+transform-origin:top center;
+transition:transform 1.5s cubic-bezier(.77,0,.18,1);
 z-index:5;
+}
+
+.flap::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(to bottom, rgba(0,0,0,0.2), transparent);
 }
 
 .seal{
 position:absolute;
-top:55%;
+top:56%;
 left:50%;
 transform:translate(-50%,-50%);
-width:90px;
-height:90px;
+width:95px;
+height:95px;
 background:#f3efe2;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
 font-family:'Great Vibes',cursive;
-font-size:36px;
+font-size:38px;
 color:#8c7a3f;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
 cursor:pointer;
 z-index:10;
 transition:0.3s;
@@ -90,45 +97,41 @@ transform:translate(-50%,-50%) scale(1.1);
 .card{
 position:absolute;
 bottom:0;
-width:90%;
-height:85%;
-background:#fdfaf3;
 left:50%;
 transform:translateX(-50%) translateY(100%);
+width:92%;
+height:88%;
+background:url('floral-bg.jpg') center/cover no-repeat;
 border-radius:20px;
-box-shadow:0 20px 40px rgba(0,0,0,0.4);
+box-shadow:0 30px 60px rgba(0,0,0,0.4);
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-transition:1.2s ease;
+padding:40px;
+transition:transform 1.4s cubic-bezier(.77,0,.18,1);
 z-index:1;
 }
 
-.card h1{
-font-family:'Great Vibes',cursive;
-font-size:50px;
-color:#8c7a3f;
-margin:0;
-}
-
-/* OPEN STATE */
+/* OPEN ANIMATION */
 
 .open .flap{
-transform:rotateX(-160deg);
+transform:rotateX(-175deg);
 }
 
 .open .card{
-transform:translateX(-50%) translateY(-20%);
+transform:translateX(-50%) translateY(-10%);
+transition-delay:0.6s;
 }
 
 .open .intro{
 opacity:0;
 pointer-events:none;
+transition:1s;
 }
 
-/* ================= MAIN WEBSITE ================= */
+/* ================= MAIN SITE ================= */
 
 section{
 min-height:100vh;
@@ -137,68 +140,92 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
-padding:40px;
+padding:60px 20px;
 }
 
 /* HERO */
 
 .hero{
-background:#f6f3ea;
+background:url('floral-bg.jpg') center/cover no-repeat;
+}
+
+.hero h3{
+letter-spacing:4px;
+font-size:14px;
+color:#8c7a3f;
+margin-bottom:10px;
 }
 
 .hero h1{
 font-family:'Great Vibes',cursive;
-font-size:70px;
-color:#8c7a3f;
+font-size:60px;
+margin:10px 0;
+color:#5e3d3d;
 }
 
 .hero h2{
 letter-spacing:3px;
+font-size:22px;
 color:#444;
+}
+
+.hero p{
+margin-top:15px;
+color:#666;
 }
 
 /* COUNTDOWN */
 
+.countdown{
+background:#f6f3ea;
+}
+
+.countdown h3{
+letter-spacing:4px;
+font-size:14px;
+color:#8c7a3f;
+}
+
+.countdown h1{
+font-family:'Great Vibes',cursive;
+font-size:50px;
+margin:10px 0 40px 0;
+color:#5e3d3d;
+}
+
 .timer{
 display:flex;
 gap:30px;
-margin-top:40px;
+flex-wrap:wrap;
+justify-content:center;
 }
 
 .box{
 background:#f3efe2;
-padding:30px 40px;
+padding:25px 35px;
 border-radius:12px;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
 }
 
 .box h3{
-font-size:40px;
-color:#8c7a3f;
+font-size:36px;
 margin:0;
+color:#5e3d3d;
 }
 
-/* VENUE */
-
-.venue h1,
-.program h1,
-.rsvp h1{
-font-family:'Great Vibes',cursive;
-font-size:60px;
+.box p{
+font-size:12px;
+letter-spacing:3px;
 color:#8c7a3f;
 }
 
-/* RSVP BUTTON */
+/* FOOTER */
 
-button{
-margin-top:30px;
-padding:15px 40px;
-border:none;
-background:#8c7a3f;
-color:white;
-font-size:16px;
-border-radius:30px;
-cursor:pointer;
+footer{
+padding:40px;
+text-align:center;
+color:#888;
+font-size:14px;
 }
 
 </style>
@@ -206,33 +233,37 @@ cursor:pointer;
 
 <body>
 
-<!-- INTRO -->
+<!-- INTRO ENVELOPE -->
 <div class="intro">
 <div class="envelope-wrapper">
-
 <div class="envelope"></div>
 <div class="flap"></div>
-
-<div class="seal" onclick="openEnvelope()">ZJ</div>
+<div class="seal" onclick="openEnvelope()">ZQ</div>
 
 <div class="card">
-<h1>Save the Date</h1>
-<p>Zubair & Bride</p>
-<p>June 20, 2026</p>
+<h1 style="font-family:'Great Vibes'; font-size:48px; color:#5e3d3d;">Save the date</h1>
+<h2 style="letter-spacing:4px; font-size:20px; margin-top:10px;">ZULFKAR QURESHI</h2>
+<p style="margin-top:15px;">26 April 2026</p>
 </div>
 
 </div>
 </div>
 
-<!-- WEBSITE CONTENT -->
+<!-- HERO SECTION -->
 
 <section class="hero">
-<h1>Zubair & Bride</h1>
-<h2>June 20, 2026</h2>
+<h3>WE ARE GETTING MARRIED</h3>
+<h1>Zulfkar Qureshi</h1>
+<h2>26 | APRIL | SUNDAY</h2>
+<p>2026</p>
 </section>
 
+<!-- COUNTDOWN SECTION -->
+
 <section class="countdown">
-<h2>Countdown to the Big Day</h2>
+<h3>COUNTDOWN</h3>
+<h1>For the big day</h1>
+
 <div class="timer">
 <div class="box"><h3 id="days">0</h3><p>DAYS</p></div>
 <div class="box"><h3 id="hours">0</h3><p>HOURS</p></div>
@@ -241,44 +272,36 @@ cursor:pointer;
 </div>
 </section>
 
-<section class="venue">
-<h1>The Venue</h1>
-<p>Hacienda de Orán, Sevilla</p>
-</section>
-
-<section class="program">
-<h1>Program of the Day</h1>
-<p>4:30 PM – Welcome Drinks</p>
-<p>6:00 PM – Ceremony</p>
-<p>8:00 PM – Dinner</p>
-</section>
-
-<section class="rsvp">
-<h1>RSVP</h1>
-<button>Confirm Attendance</button>
-</section>
+<footer>
+Made with love for Zulfkar Qureshi Wedding 2026
+</footer>
 
 <script>
 
 function openEnvelope(){
 document.body.classList.add("open");
+setTimeout(()=>{
 document.body.style.overflow="auto";
+},1500);
 }
 
-const weddingDate = new Date("June 20, 2026 16:30:00").getTime();
+const weddingDate = new Date("April 26, 2026 16:00:00").getTime();
 
-setInterval(function() {
+setInterval(function(){
 const now = new Date().getTime();
 const gap = weddingDate - now;
 
 document.getElementById("days").innerText =
-Math.floor(gap / (1000 * 60 * 60 * 24));
+Math.floor(gap / (1000*60*60*24));
+
 document.getElementById("hours").innerText =
-Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+Math.floor((gap % (1000*60*60*24)) / (1000*60*60));
+
 document.getElementById("minutes").innerText =
-Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+Math.floor((gap % (1000*60*60)) / (1000*60));
+
 document.getElementById("seconds").innerText =
-Math.floor((gap % (1000 * 60)) / 1000);
+Math.floor((gap % (1000*60)) / 1000);
 
 },1000);
 
