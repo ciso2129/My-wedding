@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zulfkar quresi</title>
+<title>Zulfi & Aisha Wedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Amiri&display=swap" rel="stylesheet">
 
@@ -11,255 +11,182 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-height:100vh;
-overflow:hidden;
 font-family:'Playfair Display', serif;
-background:#dbe6c6;
-}
-
-/* ================= ENVELOPE FULL SCREEN ================= */
-
-.envelope-screen{
-position:fixed;
-width:100%;
-height:100vh;
-background:linear-gradient(135deg,#cddbb0,#dbe6c6);
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:999;
-}
-
-.envelope{
-width:90%;
-max-width:500px;
-height:300px;
-background:#b7c89e;
-position:relative;
-border-radius:10px;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
-overflow:hidden;
-}
-
-/* FLAP */
-.flap{
-position:absolute;
-width:100%;
-height:50%;
-background:#aabf8b;
-top:0;
-left:0;
-transform-origin:top;
-transition:1s ease;
-clip-path:polygon(0 0,100% 0,50% 100%);
-z-index:2;
-}
-
-/* SEAL */
-.seal{
-position:absolute;
-width:100px;
-height:100px;
-background:radial-gradient(circle,#d4af37,#a8891f);
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:'Great Vibes', cursive;
-font-size:36px;
-color:white;
-cursor:pointer;
-bottom:90px;
-left:50%;
-transform:translateX(-50%);
-z-index:3;
-box-shadow:0 8px 20px rgba(0,0,0,0.4);
-transition:.3s;
-}
-
-.seal:active{
-transform:translateX(-50%) scale(.9);
-}
-
-.open .flap{
-transform:rotateX(-180deg);
-}
-
-/* ================= INVITATION ================= */
-
-.invite{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-min-height:100vh;
 background:#dbe6c6 url('https://www.transparenttextures.com/patterns/arabesque.png');
-display:flex;
-flex-direction:column;
-align-items:center;
-padding:40px 20px;
-opacity:0;
-pointer-events:none;
-transition:1.5s ease;
-overflow:auto;
+overflow-x:hidden;
+color:#333;
 }
 
-.invite.show{
-opacity:1;
-pointer-events:auto;
+section{
+padding:70px 20px;
+text-align:center;
+max-width:900px;
+margin:auto;
 }
+
+.gold{color:#bfa134;}
 
 h1{
 font-family:'Great Vibes', cursive;
 font-size:60px;
 color:#bfa134;
-margin-bottom:10px;
-text-align:center;
 }
 
-.gold{
+.monogram{
+font-family:'Great Vibes';
+font-size:80px;
 color:#bfa134;
+margin:20px 0;
 }
 
-.section{
-margin:40px 0;
-text-align:center;
-max-width:600px;
+.divider{
+width:120px;
+height:3px;
+background:#bfa134;
+margin:20px auto;
 }
 
-.border{
-border-top:2px solid #bfa134;
-border-bottom:2px solid #bfa134;
-padding:20px 0;
+.guest-text{
+margin-top:25px;
+font-size:22px;
+line-height:1.6;
 }
 
 .button{
-padding:14px 35px;
+padding:12px 30px;
 background:linear-gradient(145deg,#d4af37,#a8891f);
 border:none;
 border-radius:30px;
 color:white;
 font-size:18px;
 cursor:pointer;
-transition:.3s;
+margin-top:20px;
+text-decoration:none;
+display:inline-block;
 }
 
-.button:hover{
-transform:scale(1.08);
+.qr{
+margin-top:25px;
 }
 
-#countdown{
-font-size:22px;
-margin-top:10px;
+.gallery{
+display:flex;
+gap:15px;
+overflow-x:auto;
+padding:20px 0;
 }
 
-/* GOLD PARTICLES */
-.particle{
-position:fixed;
-width:6px;
-height:6px;
-background:#d4af37;
-border-radius:50%;
-opacity:.6;
-animation:float 8s linear infinite;
-}
-
-@keyframes float{
-from{transform:translateY(100vh);}
-to{transform:translateY(-10vh);}
+.gallery img{
+height:220px;
+border-radius:15px;
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
 
 @media(max-width:600px){
 h1{font-size:42px;}
-.envelope{height:240px;}
+.monogram{font-size:60px;}
 }
 </style>
 </head>
+
 <body>
 
-<!-- ENVELOPE -->
-<div class="envelope-screen" id="screen">
-<div class="envelope" id="envelope">
-<div class="flap"></div>
-<div class="seal" onclick="openInvite()">Z & A</div>
-</div>
-<p class="gold" style="margin-top:20px;">Tap the Golden Seal</p>
-</div>
-
-<!-- INVITATION -->
-<div class="invite" id="invite">
-
-<div class="gold" style="font-family:'Amiri';font-size:28px;">
+<section>
+<div style="font-family:'Amiri';font-size:26px;" class="gold">
 بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
 </div>
 
+<div class="monogram">Z & A</div>
+
 <h1>Zulfi & Aisha</h1>
 
-<div class="section border">
+<div id="guestName" class="guest-text"></div>
+
+<div id="rsvpSection"></div>
+</section>
+
+<section>
 <h2>Wedding Events</h2>
+<div class="divider"></div>
 <p><strong>Mehndi:</strong> 18 April 2026 – 7:00 PM</p>
 <p><strong>Nikah:</strong> 20 April 2026 – 5:00 PM</p>
 <p><strong>Walima:</strong> 21 April 2026 – 6:00 PM</p>
-</div>
+</section>
 
-<div class="section">
-<h2>Countdown to Nikah</h2>
-<div id="countdown"></div>
-</div>
-
-<div class="section border">
+<section>
 <h2>Venue</h2>
+<div class="divider"></div>
 <p>Royal Garden, Srinagar</p>
-</div>
+<a href="https://www.google.com/maps/search/Royal+Garden+Srinagar" target="_blank" class="button">
+Open in Google Maps
+</a>
+</section>
 
-<div class="section">
-<button class="button">RSVP</button>
-</div>
-
-</div>
-
-<audio id="music" loop>
-<source src="sufi-music.mp3" type="audio/mpeg">
-</audio>
+<section>
+<h2>Countdown to Nikah</h2>
+<div class="divider"></div>
+<div id="countdown" style="font-size:22px;"></div>
+</section>
 
 <script>
 
-function openInvite(){
-document.getElementById("envelope").classList.add("open");
+/* ================= PERSONALIZED GUEST SYSTEM ================= */
 
-setTimeout(()=>{
-document.getElementById("screen").style.display="none";
-document.getElementById("invite").classList.add("show");
-document.body.style.overflow="auto";
-document.getElementById("music").play();
-},1000);
+const allowedGuests = {
+  "zubair": "Zubair",
+  "naveed": "Naveed"
+};
+
+const params = new URLSearchParams(window.location.search);
+const guestParam = params.get("guest");
+
+const guestBox = document.getElementById("guestName");
+const rsvpBox = document.getElementById("rsvpSection");
+
+if (guestParam && allowedGuests[guestParam.toLowerCase()]) {
+
+  const guestName = allowedGuests[guestParam.toLowerCase()];
+  const currentURL = window.location.href;
+
+  guestBox.innerHTML =
+  "Honoured Guest,<br><span style='font-family:Great Vibes;font-size:30px;color:#bfa134'>" 
+  + guestName + 
+  "</span><br>We request your gracious presence at our wedding celebration.";
+
+  /* QR Code */
+  rsvpBox.innerHTML +=
+  "<div class='qr'><img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="
+  + encodeURIComponent(currentURL) +
+  "' alt='QR Code'></div>";
+
+  /* WhatsApp RSVP */
+  const message = "Assalamu Alaikum, I " + guestName + " will be attending the wedding of Zulfi & Aisha.";
+  const whatsappLink = "https://wa.me/91XXXXXXXXXX?text=" + encodeURIComponent(message);
+
+  rsvpBox.innerHTML +=
+  "<a class='button' href='" + whatsappLink + "' target='_blank'>RSVP on WhatsApp</a>";
+
+} else {
+  guestBox.innerHTML =
+  "We request your gracious presence at our wedding celebration.";
 }
 
-/* Countdown */
-var weddingDate=new Date("April 20, 2026 17:00:00").getTime();
+/* ================= COUNTDOWN ================= */
+
+var weddingDate = new Date("April 20, 2026 17:00:00").getTime();
 
 setInterval(function(){
-var now=new Date().getTime();
-var distance=weddingDate-now;
+var now = new Date().getTime();
+var distance = weddingDate - now;
 
-var days=Math.floor(distance/(1000*60*60*24));
-var hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-var minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-var seconds=Math.floor((distance%(1000*60))/1000);
+var days = Math.floor(distance/(1000*60*60*24));
+var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+var seconds = Math.floor((distance%(1000*60))/1000);
 
-document.getElementById("countdown").innerHTML=
-days+"d "+hours+"h "+minutes+"m "+seconds+"s";
+document.getElementById("countdown").innerHTML =
+days + "d " + hours + "h " + minutes + "m " + seconds + "s";
 },1000);
-
-/* Floating gold particles */
-for(let i=0;i<25;i++){
-let p=document.createElement("div");
-p.className="particle";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(5+Math.random()*5)+"s";
-document.body.appendChild(p);
-}
 
 </script>
 
