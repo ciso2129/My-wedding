@@ -1,115 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Playfair Display', serif;
-      background: #fdfcfb;
-      color: #333;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
 
-    .hero {
-      width: 100%;
-      height: 60vh;
-      background: url('hero-photo.jpg') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-bottom: 6px solid #ddd;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
-    .hero h1 {
-      font-size: 3rem;
-      color: white;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-      animation: fadeInDown 1.5s ease;
-    }
+<style>
+body{
+  margin:0;
+  font-family:'Playfair Display', serif;
+  background:#d9e4c4; /* Light Olive */
+  color:#6b5b2a;
+  overflow-x:hidden;
+}
 
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+/* GOLD TEXT */
+.gold{
+  color:#bfa134;
+}
 
-    .content {
-      margin-top: 30px;
-      padding: 0 16px;
-    }
+/* Envelope Screen */
+.envelope-screen{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:#cfdcb3;
+  position:fixed;
+  width:100%;
+  z-index:10;
+}
 
-    .content h2 {
-      font-size: 2rem;
-      color: #8b5e3c;
-      margin-bottom: 10px;
-      animation: fadeIn 1.8s ease;
-    }
+.envelope{
+  width:330px;
+  height:210px;
+  background:#b6c89e;
+  position:relative;
+  border-radius:8px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
 
-    .content p {
-      font-size: 1.2rem;
-      margin: 6px 0;
-      animation: fadeIn 2.1s ease;
-    }
+.seal{
+  width:85px;
+  height:85px;
+  background:linear-gradient(145deg,#bfa134,#a88e2e);
+  border-radius:50%;
+  position:absolute;
+  top:65px;
+  left:122px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Great Vibes', cursive;
+  font-size:30px;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.4);
+  transition:0.3s;
+}
 
-    .rsvp {
-      margin-top: 28px;
-    }
+.seal:hover{
+  transform:scale(1.1);
+}
 
-    .btn {
-      display: inline-block;
-      padding: 14px 30px;
-      font-size: 1.2rem;
-      background: #8b5e3c;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 32px;
-      transition: .3s cubic-bezier(.25,.8,.25,1);
-      animation: fadeIn 2.4s ease;
-    }
+/* Invitation Content */
+.invite-content{
+  display:none;
+  text-align:center;
+  padding:25px;
+  animation:fadeIn 1.5s ease forwards;
+}
 
-    .btn:hover {
-      background: #6e4730;
-      transform: scale(1.08);
-    }
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+h1{
+  font-family:'Great Vibes', cursive;
+  font-size:52px;
+  margin-bottom:5px;
+}
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2.2rem; }
-      .content h2 { font-size: 1.8rem; }
-      .btn { padding: 12px 26px; font-size: 1rem; }
-    }
-  </style>
+.section{
+  margin:50px 0;
+}
+
+.button{
+  padding:14px 35px;
+  background:linear-gradient(145deg,#bfa134,#a88e2e);
+  color:white;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.button:hover{
+  transform:scale(1.08);
+}
+
+/* Decorative Kashmiri Border */
+.border{
+  border-top:3px solid #bfa134;
+  border-bottom:3px solid #bfa134;
+  padding:15px 0;
+  margin:40px 0;
+}
+
+/* Gallery */
+.gallery img{
+  width:90%;
+  max-width:300px;
+  margin:12px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Countdown */
+#countdown{
+  font-size:22px;
+  margin-top:10px;
+}
+
+/* Map */
+iframe{
+  width:100%;
+  max-width:600px;
+  height:300px;
+  border-radius:12px;
+  border:3px solid #bfa134;
+}
+
+/* RSVP */
+input, textarea{
+  width:90%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:6px;
+  border:1px solid #bfa134;
+}
+
+/* Floating golden particles */
+.particle{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:#bfa134;
+  border-radius:50%;
+  opacity:0.6;
+  animation:float 10s infinite linear;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+@media(max-width:600px){
+  h1{font-size:40px;}
+}
+</style>
 </head>
+
 <body>
 
-  <div class="hero">
-    <h1>Emma & Liam</h1>
+<!-- Floating Particles -->
+<script>
+for(let i=0;i<20;i++){
+  let p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(5+Math.random()*10)+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- Envelope -->
+<div class="envelope-screen" id="envelopeScreen">
+  <div class="envelope">
+    <div class="seal" onclick="openInvite()">Z & A</div>
+  </div>
+  <p class="gold">Tap the Golden Seal</p>
+</div>
+
+<!-- Invitation -->
+<div class="invite-content" id="inviteContent">
+
+  <h1 class="gold">Zulfi & Aisha</h1>
+  <p class="gold">Invite you to celebrate their Nikah</p>
+
+  <div class="border">
+    <h2>Wedding Day</h2>
+    <p>Sunday, 20 April 2026</p>
+    <p>5:00 PM Onwards</p>
   </div>
 
-  <div class="content">
-    <h2>You're Invited to Our Wedding</h2>
-    <p><strong>Date:</strong> Sunday, 12th July 2026</p>
-    <p><strong>Time:</strong> 5:00 PM Onwards</p>
-    <p><strong>Venue:</strong> The Golden Garden Hall</p>
+  <div class="section">
+    <h2>Countdown</h2>
+    <div id="countdown"></div>
+  </div>
 
-    <div class="rsvp">
-      <a href="https://your-rsvp-link.com" class="btn">RSVP Now</a>
+  <div class="section border">
+    <h2>Venue</h2>
+    <p>Royal Garden, Srinagar</p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18..." loading="lazy"></iframe>
+  </div>
+
+  <div class="section">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
     </div>
   </div>
 
-  <!-- Optional Music -->
-  <audio autoplay loop>
-    <source src="wedding-music.mp3" type="audio/mpeg">
-  </audio>
+  <div class="section border">
+    <h2>RSVP</h2>
+    <form action="https://formsubmit.co/your@email.com" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="number" name="guests" placeholder="Number of Guests" required>
+      <textarea name="message" placeholder="Message"></textarea>
+      <br>
+      <button class="button" type="submit">Send RSVP</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openInvite(){
+  document.getElementById("envelopeScreen").style.display="none";
+  document.getElementById("inviteContent").style.display="block";
+  document.getElementById("bgMusic").play();
+}
+
+/* Countdown */
+var weddingDate=new Date("April 20, 2026 17:00:00").getTime();
+
+setInterval(function(){
+  var now=new Date().getTime();
+  var distance=weddingDate-now;
+
+  var days=Math.floor(distance/(1000*60*60*24));
+  var hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  var minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+  var seconds=Math.floor((distance%(1000*60))/1000);
+
+  document.getElementById("countdown").innerHTML=
+  days+"d "+hours+"h "+minutes+"m "+seconds+"s";
+},1000);
+</script>
 
 </body>
 </html>
