@@ -1,166 +1,287 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
+<title>Zubair Wedding</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
 
 body{
-height:100vh;
-background:linear-gradient(135deg,#d6d3b0,#b5a642);
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:'Poppins',sans-serif;
+margin:0;
+font-family:'Playfair Display',serif;
+background:#f6f3ea;
 overflow:hidden;
+scroll-behavior:smooth;
 }
 
-/* INTRO SCREEN */
-#intro{
+/* ================= ENVELOPE INTRO ================= */
+
+.intro{
 position:fixed;
 width:100%;
-height:100%;
-background:#000;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-z-index:10;
-}
-
-.character{
-width:220px;
-position:absolute;
-bottom:-300px;
-animation:walkIn 3s forwards ease-in-out;
-}
-
-@keyframes walkIn{
-0%{bottom:-300px;}
-100%{bottom:100px;}
-}
-
-/* ENVELOPE */
-.envelope{
-width:320px;
-height:220px;
-background:#f5f1e8;
-position:absolute;
-bottom:-400px;
-border-radius:10px;
-box-shadow:0 15px 40px rgba(0,0,0,0.5);
-animation:dropCard 3s forwards ease-in-out 3s;
-}
-
-@keyframes dropCard{
-0%{bottom:-400px;}
-100%{bottom:120px;}
-}
-
-.seal{
-width:70px;
-height:70px;
-background:radial-gradient(circle,#b8860b,#8b6508);
-border-radius:50%;
-position:absolute;
-top:75px;
-left:125px;
-cursor:pointer;
-box-shadow:0 0 15px gold;
-transition:0.4s;
-}
-
-.seal:hover{
-transform:scale(1.1);
-}
-
-.hidden{
-display:none;
-}
-
-/* INVITATION */
-#invitation{
-position:fixed;
-width:100%;
-height:100%;
-background:linear-gradient(135deg,#f3efe3,#d4af37);
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-flex-direction:column;
-opacity:0;
+background:linear-gradient(135deg,#b7c48d,#8ea663);
+perspective:1200px;
+z-index:1000;
 transition:1s;
 }
 
+.envelope-wrapper{
+position:relative;
+width:350px;
+height:500px;
+transform-style:preserve-3d;
+}
+
+.envelope{
+position:absolute;
+width:100%;
+height:100%;
+background:url('envelope-texture.jpg');
+background-size:cover;
+border-radius:30px;
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+.flap{
+position:absolute;
+top:0;
+width:100%;
+height:60%;
+background:url('envelope-texture.jpg');
+background-size:cover;
+clip-path:polygon(0 0,100% 0,50% 100%);
+transform-origin:top;
+transition:1.2s ease;
+z-index:5;
+}
+
+.seal{
+position:absolute;
+top:55%;
+left:50%;
+transform:translate(-50%,-50%);
+width:90px;
+height:90px;
+background:#f3efe2;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-family:'Great Vibes',cursive;
+font-size:36px;
+color:#8c7a3f;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+cursor:pointer;
+z-index:10;
+transition:0.3s;
+}
+
+.seal:hover{
+transform:translate(-50%,-50%) scale(1.1);
+}
+
 .card{
-background:white;
-padding:40px;
+position:absolute;
+bottom:0;
 width:90%;
-max-width:600px;
+height:85%;
+background:#fdfaf3;
+left:50%;
+transform:translateX(-50%) translateY(100%);
 border-radius:20px;
-box-shadow:0 10px 40px rgba(0,0,0,0.3);
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+transition:1.2s ease;
+z-index:1;
 }
 
-h1{
-font-family:'Cinzel',serif;
-color:#b8860b;
-font-size:32px;
-margin-bottom:20px;
+.card h1{
+font-family:'Great Vibes',cursive;
+font-size:50px;
+color:#8c7a3f;
+margin:0;
 }
 
-p{
-margin:10px 0;
-font-size:18px;
+/* OPEN STATE */
+
+.open .flap{
+transform:rotateX(-160deg);
 }
 
-.guest{
-font-size:22px;
-font-weight:600;
-color:#8b6508;
-margin-top:20px;
+.open .card{
+transform:translateX(-50%) translateY(-20%);
 }
+
+.open .intro{
+opacity:0;
+pointer-events:none;
+}
+
+/* ================= MAIN WEBSITE ================= */
+
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px;
+}
+
+/* HERO */
+
+.hero{
+background:#f6f3ea;
+}
+
+.hero h1{
+font-family:'Great Vibes',cursive;
+font-size:70px;
+color:#8c7a3f;
+}
+
+.hero h2{
+letter-spacing:3px;
+color:#444;
+}
+
+/* COUNTDOWN */
+
+.timer{
+display:flex;
+gap:30px;
+margin-top:40px;
+}
+
+.box{
+background:#f3efe2;
+padding:30px 40px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.box h3{
+font-size:40px;
+color:#8c7a3f;
+margin:0;
+}
+
+/* VENUE */
+
+.venue h1,
+.program h1,
+.rsvp h1{
+font-family:'Great Vibes',cursive;
+font-size:60px;
+color:#8c7a3f;
+}
+
+/* RSVP BUTTON */
+
+button{
+margin-top:30px;
+padding:15px 40px;
+border:none;
+background:#8c7a3f;
+color:white;
+font-size:16px;
+border-radius:30px;
+cursor:pointer;
+}
+
 </style>
 </head>
 
 <body>
 
 <!-- INTRO -->
-<div id="intro">
-<img src="character.png" class="character">
-<div class="envelope">
-<div class="seal" onclick="openInvitation()"></div>
+<div class="intro">
+<div class="envelope-wrapper">
+
+<div class="envelope"></div>
+<div class="flap"></div>
+
+<div class="seal" onclick="openEnvelope()">ZJ</div>
+
+<div class="card">
+<h1>Save the Date</h1>
+<p>Zubair & Bride</p>
+<p>June 20, 2026</p>
+</div>
+
 </div>
 </div>
 
-<!-- INVITATION -->
-<div id="invitation">
-<div class="card">
-<h1>Zain & Ayesha</h1>
-<p>With the blessings of our parents</p>
-<p>We invite you to our Wedding Ceremony</p>
-<p>Sunday, 20 December 2026</p>
-<p>Srinagar, Kashmir</p>
-<p class="guest">Dear Guest</p>
+<!-- WEBSITE CONTENT -->
+
+<section class="hero">
+<h1>Zubair & Bride</h1>
+<h2>June 20, 2026</h2>
+</section>
+
+<section class="countdown">
+<h2>Countdown to the Big Day</h2>
+<div class="timer">
+<div class="box"><h3 id="days">0</h3><p>DAYS</p></div>
+<div class="box"><h3 id="hours">0</h3><p>HOURS</p></div>
+<div class="box"><h3 id="minutes">0</h3><p>MINUTES</p></div>
+<div class="box"><h3 id="seconds">0</h3><p>SECONDS</p></div>
 </div>
-</div>
+</section>
+
+<section class="venue">
+<h1>The Venue</h1>
+<p>Hacienda de Orán, Sevilla</p>
+</section>
+
+<section class="program">
+<h1>Program of the Day</h1>
+<p>4:30 PM – Welcome Drinks</p>
+<p>6:00 PM – Ceremony</p>
+<p>8:00 PM – Dinner</p>
+</section>
+
+<section class="rsvp">
+<h1>RSVP</h1>
+<button>Confirm Attendance</button>
+</section>
 
 <script>
-function openInvitation(){
-document.querySelector(".seal").style.transform="scale(0)";
-setTimeout(()=>{
-document.getElementById("intro").style.display="none";
-document.getElementById("invitation").style.opacity="1";
-},500);
+
+function openEnvelope(){
+document.body.classList.add("open");
+document.body.style.overflow="auto";
 }
+
+const weddingDate = new Date("June 20, 2026 16:30:00").getTime();
+
+setInterval(function() {
+const now = new Date().getTime();
+const gap = weddingDate - now;
+
+document.getElementById("days").innerText =
+Math.floor(gap / (1000 * 60 * 60 * 24));
+document.getElementById("hours").innerText =
+Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+document.getElementById("minutes").innerText =
+Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+document.getElementById("seconds").innerText =
+Math.floor((gap % (1000 * 60)) / 1000);
+
+},1000);
+
 </script>
 
 </body>
