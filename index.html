@@ -9,15 +9,15 @@
     <style>
         :root {
             --olive-deep: #3b4d1a;
-            --olive-lite: #a4b494;
-            --sage-bg: #f2f5ed;
+            --olive-lite: #8b9467;
             --cream: #fffdfa;
             --gold: #c5a059;
+            --shadow: rgba(0,0,0,0.15);
         }
 
         body {
             margin: 0;
-            background: #e9edde;
+            background: #f4f6f0;
             font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
@@ -26,13 +26,13 @@
             overflow: hidden;
         }
 
-        /* Envelope positioning */
-        .envelope-wrapper {
+        /* Envelope Logic */
+        .envelope-container {
             position: relative;
             width: 320px;
             height: 220px;
-            cursor: pointer;
-            z-index: 5;
+            transition: opacity 1s ease, transform 1s ease;
+            z-index: 10;
         }
 
         .envelope {
@@ -40,10 +40,10 @@
             width: 100%;
             height: 100%;
             background-color: var(--olive-deep);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 30px 60px var(--shadow);
+            z-index: 1;
         }
 
-        /* SLOW MOTION FLAP */
         .flap {
             position: absolute;
             top: 0;
@@ -51,104 +51,118 @@
             height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
-            border-top: 120px solid var(--olive-lite);
+            border-top: 130px solid var(--olive-lite);
             transform-origin: top;
-            transition: transform 1.5s ease-in-out; /* Slower opening */
-            z-index: 2;
+            transition: transform 1.5s ease-in-out;
+            z-index: 3;
         }
 
         .stamp {
             position: absolute;
-            top: 90px;
+            top: 100px;
             left: 135px;
             width: 50px;
             height: 50px;
             background: radial-gradient(circle, #d4af37, #b38b4d);
             border-radius: 50%;
-            z-index: 3;
+            z-index: 4;
             display: flex;
-            align-items: center;      
+            align-items: center;
             justify-content: center;
-            font-family: 'Great Vibes', cursive;
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: opacity 1s ease;
+            font-family: 'Great Vibes', cursive;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: opacity 0.5s ease;
         }
 
-        /* VERTICAL CARD - FIT TO SCREEN */
-        .card {
+        /* PREMIUM FULL-PAGE CARD */
+        .card-overlay {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 85vw; /* Vertical width */
-            max-width: 350px;
-            height: 0; 
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: var(--cream);
-            transform: translate(-50%, -50%) scale(0.6);
-            opacity: 0;
-            /* Slow Motion Pop-up */
-            transition: all 2.5s cubic-bezier(0.22, 1, 0.36, 1); 
             z-index: 100;
+            display: none; /* Hidden until opened */
+            opacity: 0;
+            transition: opacity 2s ease;
             overflow-y: auto;
-            border: 6px double var(--olive-lite);
-            padding: 50px 20px;
-            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .card-inner {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 60px 30px;
             text-align: center;
-            border-radius: 10px;
+            border: 1px solid #eee;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.05);
         }
 
-        /* OPEN STATE */
-        .open .flap { transform: rotateX(180deg); }
-        .open .stamp { opacity: 0; }
-        .open .card {
-            height: 80vh; /* Vertical height */
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
+        /* Typography & Style */
         .names {
             font-family: 'Great Vibes', cursive;
             color: var(--olive-deep);
-            font-size: 2.2rem;
-            margin: 20px 0;
-            display: inline-block;
+            font-size: 2.8rem;
+            margin: 30px 0;
+            line-height: 1.1;
+        }
+
+        .section-title {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.7rem;
+            color: var(--gold);
+            margin: 40px 0 10px 0;
+            font-weight: 600;
         }
 
         #countdown {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             margin: 30px 0;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            padding: 15px 0;
+            padding: 20px;
+            background: #fbfbfb;
+            border-radius: 15px;
         }
 
-        .time-box span { display: block; font-size: 1.4rem; color: var(--gold); font-weight: bold; }
+        .time-box span { display: block; font-size: 1.5rem; color: var(--gold); font-weight: bold; }
+        .time-box label { font-size: 0.6rem; text-transform: uppercase; color: #999; }
 
         .rsvp-btn {
             display: inline-block;
             background: #25D366;
             color: white;
-            padding: 15px 35px;
+            padding: 16px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 20px;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
         }
 
-        .petal {
+        /* Animations */
+        .open-envelope .flap { transform: rotateX(180deg); }
+        .open-envelope .stamp { opacity: 0; }
+        .fade-out { opacity: 0; transform: scale(0.9); pointer-events: none; }
+        .fade-in { display: block !important; opacity: 1 !important; }
+
+        /* Leaf Animation */
+        .leaf {
             position: fixed;
-            background-color: rgba(164, 180, 148, 0.4);
-            border-radius: 150% 0 150% 0;
+            background: rgba(139, 148, 103, 0.3);
+            border-radius: 100% 0 100% 0;
             pointer-events: none;
-            z-index: 1;
+            z-index: 101;
         }
-
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        @keyframes drift {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(720deg); }
         }
     </style>
 </head>
@@ -158,68 +172,76 @@
     <source src="https://www.bensound.com/bensound-music/bensound-india.mp3" type="audio/mpeg">
 </audio>
 
-<div class="envelope-wrapper" id="mainContainer" onclick="openInvitation()">
+<div class="envelope-container" id="env" onclick="startExperience()">
     <div class="flap"></div>
     <div class="stamp">Z&E</div>
     <div class="envelope"></div>
-    
-    <div class="card" id="inviteCard">
-        <p style="text-transform:uppercase; letter-spacing:3px; font-size:10px; color:var(--gold);">Save The Date</p>
+</div>
+
+<div class="card-overlay" id="cardOverlay">
+    <div class="card-inner">
+        <p style="letter-spacing: 5px; font-size: 11px; color: var(--gold);">SAVE THE DATE</p>
+        
         <div class="names">Zulfkar Qureshi <br>&<br> Eqra Farooq</div>
-        <p style="letter-spacing: 1px; color: var(--olive-deep);">26 APRIL 2026</p>
         
+        <p style="font-weight: 300; font-size: 1.1rem; color: var(--olive-deep);">SUNDAY, APRIL 26, 2026</p>
+
         <div id="countdown">
-            <div class="time-box"><span id="days">00</span>Days</div>
-            <div class="time-box"><span id="hours">00</span>Hrs</div>
-            <div class="time-box"><span id="mins">00</span>Mins</div>
+            <div class="time-box"><span id="days">00</span><label>Days</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
+            <div class="time-box"><span id="mins">00</span><label>Mins</label></div>
         </div>
 
-        <div style="margin:20px 0;">
-            <h4 style="color:var(--gold); font-size: 12px; letter-spacing: 2px;">VENUE</h4>
-            <p style="font-size: 14px;">Royal Orchid Gardens<br>Srinagar, J&K</p>
-        </div>
-
-        <a href="https://wa.me/910000000000?text=I%20am%20coming!" class="rsvp-btn">RSVP WhatsApp</a>
+        <div class="section-title">The Ceremony</div>
+        <p>Nikah followed by Walima Feast</p>
         
-        <div style="height: 60px;"></div>
+        <div class="section-title">Location</div>
+        <p>Royal Orchid Gardens<br>Srinagar, J&K</p>
+
+        <a href="https://wa.me/910000000000?text=I%20will%20be%20there!" class="rsvp-btn">Confirm via WhatsApp</a>
+
+        <p style="margin-top: 50px; font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: var(--olive-lite);">We look forward to seeing you</p>
+        <div style="height: 100px;"></div>
     </div>
 </div>
 
 <script>
-    function openInvitation() {
-        const container = document.getElementById('mainContainer');
+    function startExperience() {
+        const env = document.getElementById('env');
+        const overlay = document.getElementById('cardOverlay');
         const music = document.getElementById('weddingMusic');
-        
-        if (!container.classList.contains('open')) {
-            container.classList.add('open');
-            music.play();
+
+        // Step 1: Open Flap
+        env.classList.add('open-envelope');
+        music.play();
+
+        // Step 2: Fade Envelope and Show Full Card (Slow Motion)
+        setTimeout(() => {
+            env.classList.add('fade-out');
+            overlay.classList.add('fade-in');
             createLeaves();
-        } else {
-            container.classList.remove('open');
-            music.pause();
-        }
+        }, 1500);
     }
 
     function createLeaves() {
         for (let i = 0; i < 20; i++) {
             const leaf = document.createElement('div');
-            leaf.className = 'petal';
+            leaf.className = 'leaf';
             leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.width = Math.random() * 12 + 8 + 'px';
+            leaf.style.width = Math.random() * 15 + 10 + 'px';
             leaf.style.height = leaf.style.width;
-            leaf.style.animation = `fall ${Math.random() * 5 + 4}s linear infinite`;
-            leaf.style.animationDelay = Math.random() * 2 + 's';
+            leaf.style.animation = `drift ${Math.random() * 5 + 5}s linear infinite`;
             document.body.appendChild(leaf);
         }
     }
 
-    const target = new Date("April 26, 2026 00:00:00").getTime();
+    const weddingDate = new Date("April 26, 2026 00:00:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
-        const gap = target - now;
-        document.getElementById("days").innerText = Math.floor(gap / (1000 * 60 * 60 * 24));
-        document.getElementById("hours").innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById("mins").innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+        const diff = weddingDate - now;
+        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     }, 1000);
 </script>
 
